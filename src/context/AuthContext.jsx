@@ -76,8 +76,8 @@ export const AuthProvider = ({ children }) => {
       console.log('Login response:', response);
       
       // Access response directly (not response.data)
-      if (response.success && response.token && response.station) {
-        const { station: stationData, token } = response;
+      if (response.success && response.token && response.data) {
+      const { data: stationData, token } = response;
         
         console.log('Login successful, saving data:', { stationData, token: token.substring(0, 20) + '...' });
         

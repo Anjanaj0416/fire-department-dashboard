@@ -83,10 +83,10 @@ const RegisterPage = () => {
 
     // Create submission data with coordinates
     const submissionData = {
-      ...formData,
-      lat: coordinates.lat,
-      lng: coordinates.lng
-    };
+    stationName: formData.stationName,
+    phone: formData.phone,
+    googleLink: formData.googleMapsLink  // ✅ This was missing!
+  };
 
     console.log('Submitting with coordinates:', submissionData);
 
