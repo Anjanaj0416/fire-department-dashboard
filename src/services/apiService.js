@@ -91,10 +91,11 @@ export const updateFCMToken = async (stationId, fcmToken) => {
 };
 
 /**
- * Get all alerts for the station
+ * ✅ FIXED: Get all FIRE alerts for the station
  */
 export const getAlerts = async () => {
-  const response = await api.get(API_ENDPOINTS.ALERTS);
+  // ✅ CRITICAL FIX: Add ?type=fire to filter only fire alerts
+  const response = await api.get(`${API_ENDPOINTS.FIRE_ALERTS}`);
   return response.data;
 };
 
@@ -110,7 +111,10 @@ export const getAlertById = async (alertId) => {
  * Update alert status
  */
 export const updateAlertStatus = async (alertId, status) => {
-  const response = await api.put(API_ENDPOINTS.ALERT_BY_ID(alertId), { status });
+  const response = await api.patch(
+    API_ENDPOINTS.UPDATE_ALERT_STATUS(alertId), 
+    { status }
+  );
   return response.data;
 };
 
