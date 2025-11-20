@@ -331,6 +331,7 @@ const MapViewPage = () => {
             stationLocation={stationLocation}
             alertLocation={alertLocation}
             onGetDirections={handleGetDirections}
+            emergencyType="fire" 
           />
         </div>
       </div>
