@@ -184,7 +184,11 @@ const AlertCard = ({ alert }) => {
       <div className="flex flex-col sm:flex-row gap-3">
         <button
           onClick={handleViewOnMap}
-          className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors"
+          className={`flex-1 flex items-center justify-center space-x-2 px-4 py-2 font-medium rounded-lg transition-colors ${
+            coords
+              ? 'bg-green-600 hover:bg-green-700 text-white'
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          }`}
         >
           <MapPin className="w-5 h-5" />
           <span>View on Map</span>
