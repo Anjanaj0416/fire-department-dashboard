@@ -120,7 +120,7 @@ const DashboardPage = () => {
         ) : (
           <div className="space-y-4">
             {filteredAlerts.map((alert) => (
-              <AlertCard key={alert._id} alert={alert} />
+              <AlertCard key={alert._id} alert={alert} dashboardType="fire" />
             ))}
           </div>
         )}
