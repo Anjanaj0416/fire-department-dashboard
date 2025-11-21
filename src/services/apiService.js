@@ -93,12 +93,24 @@ export const updateFCMToken = async (stationId, fcmToken) => {
 /**
  * ✅ FIXED: Get all FIRE alerts for the station
  */
+/**
+ * ✅ FIXED: Get FIRE alerts for THIS SPECIFIC station only
+ */
 export const getAlerts = async () => {
-  // ✅ CRITICAL FIX: Add ?type=fire to filter only fire alerts
-  const response = await api.get(`${API_ENDPOINTS.FIRE_ALERTS}`);
+  // Get the logged-in station's data
+  const stationData = localStorage.getItem(STORAGE_KEYS.STATION_DATA);
+  
+  if (!stationData) {
+    throw new Error('Station data not found. Please log in again.');
+  }
+  
+  const station = JSON.parse(stationData);
+  const stationId = station.id;
+  
+  // ✅ CRITICAL FIX: Filter alerts by this station's ID to only get alerts assigned to THIS station
+  const response = await api.get(`/alerts/station/${stationId}?type=fire`);
   return response.data;
 };
-
 /**
  * Get alert by ID
  */
