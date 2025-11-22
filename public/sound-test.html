@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background: #b91c1c;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔊 Alert Sound Test</h1>
+    <p>Click the buttons below to test your alert sound:</p>
+    
+    <button onclick="testMP3Sound()">Test MP3 Alert Sound</button>
+    <button onclick="testBeepSound()">Test Fallback Beep</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function showResult(message, isSuccess) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = 'result ' + (isSuccess ? 'success' : 'error');
+            resultDiv.textContent = message;
+        }
+
+        function testMP3Sound() {
+            console.log('Testing MP3 sound...');
+            const audio = new Audio('/alert-sound.mp3');
+            audio.volume = 0.8;
+            
+            audio.play()
+                .then(() => {
+                    showResult('✅ MP3 sound played successfully!', true);
+                    console.log('✅ MP3 played');
+                })
+                .catch((error) => {
+                    showResult('❌ MP3 failed: ' + error.message, false);
+                    console.error('❌ MP3 error:', error);
+                });
+        }
+
+        function testBeepSound() {
+            console.log('Testing beep sound...');
+            const beep = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZSA0PVqzn77BdGAg+ltryxnMpBSl+zPLaizsIGGS57OihUBELTKXh8bllHAU2jdXzzn0vBSF1xe/glEcNCVGn5O+zYhoGPJPY88p2KwUme8rx3I4+CRhvwu/mnUsQDlOq5vC2Yxw=');
+            beep.volume = 0.8;
+            
+            beep.play()
+                .then(() => {
+                    showResult('✅ Beep sound played successfully!', true);
+                    console.log('✅ Beep played');
+                })
+                .catch((error) => {
+                    showResult('❌ Beep failed: ' + error.message, false);
+                    console.error('❌ Beep error:', error);
+                });
+        }
+    </script>
+</body>
+</html>
